@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     public Vector2 dcObjThrowPoint;
     public int spawnDelayTimer;
     public float speed;
+    public SpriteRenderer sprRendStand;
+    public SpriteRenderer sprRendRunLeft;
+    public SpriteRenderer sprRendRunRight;
+    public SpriteRenderer sprRendDeath;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +30,27 @@ public class Player : MonoBehaviour
         horMove = Input.GetAxis("Horizontal");
 
         rigbody.AddForce(new Vector2(horMove * speed, 0));
+        if (Input.GetKey(KeyCode.A))
+        {
+            sprRendStand.flipX = true;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            sprRendStand.flipX = false;
+        }
+
+        if (rigbody.linearVelocity.x < -1)
+        {
+            sprRendRunLeft.enabled = true;
+        }
+        else if (rigbody.linearVelocity.x > 1)
+        {
+            sprRendRunLeft.enabled = true;
+        }
+        else
+        {
+            sprRendRunLeft.enabled = false;
+        }
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && dcObj == null)
         {
